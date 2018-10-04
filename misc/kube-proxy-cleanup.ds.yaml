@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  namespace: kube-system
+  name: kube-proxy-cleanup
+  labels:
+    k8s-app: kube-proxy-cleanup
+spec:
+  selector:
+    matchLabels:
+      k8s-app: kube-proxy-cleanup
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-proxy-cleanup
+    spec:
+      hostNetwork: true
+      containers:
+      - name: kube-proxy-cleanup
+        args: ["sh", "-c", "kube-proxy --cleanup; echo exit_status=$?; sleep 3600"]
+        image: k8s.gcr.io/kube-proxy-amd64:v1.10.2
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /lib/modules
+          name: lib-modules
+          readOnly: true
+      volumes:
+      - hostPath:
+          path: /lib/modules
+          type: ""
+        name: lib-modules
