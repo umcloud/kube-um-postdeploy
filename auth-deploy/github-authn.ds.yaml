@@ -27,8 +27,8 @@ spec:
         env:
         - name: GITHUB_ORG
           value: umcloud-external
-        - name: GITHUB_ORG_MEMBER
-          value: "true"
+#        - name: GITHUB_ORG_MEMBER
+#          value: "true"
       dnsPolicy: ClusterFirst
       hostNetwork: true
       nodeSelector:
