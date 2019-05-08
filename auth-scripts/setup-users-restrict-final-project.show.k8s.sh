@@ -1,6 +1,6 @@
 #!/bin/bash
 # Restrict view-all to only specific namespaces
-GH_TEAM=students-cd-18
+GH_TEAM=students-cd-19
 echo "kubectl delete clusterrolebinding students-clusterrole-view"
 echo "kubectl create clusterrolebinding --group=${GH_TEAM:?} students-clusterrolebinding-view-restricted --clusterrole=students-cluster-view-restricted --dry-run -oyaml|kubectl apply -f-"
 for ns in kube-system kube-public ingress-nginx um default ceph openebs monitoring logging; do
